@@ -1,0 +1,32 @@
+<section class="products-page">
+  <article class="products-page__hero">
+    Placeholder
+    <!-- <video
+      src="./../../../assets/1.mp4"
+      [muted]="'muted'"
+      autoplay
+      loop
+      playsinline
+    ></video> -->
+  </article>
+  <article class="products-page__products">
+    <mat-card *ngFor="let movie of products">
+      <mat-card-header>
+        {{ movie.name }}
+      </mat-card-header>
+      <!-- <mat-card-subtitle> </mat-card-subtitle> -->
+      <div class="img-container">
+        <img mat-card-image [src]="movie.imageUrl" />
+      </div>
+      <mat-card-content>
+        <h1>Synopsis:</h1>
+        <p>{{ movie.description }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>
+          <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </article>
+</section>

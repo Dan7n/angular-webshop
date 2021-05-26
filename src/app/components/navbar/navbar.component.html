@@ -1,0 +1,49 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="false"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/" (click)="drawer.close()">Home</a>
+      <a mat-list-item routerLink="/featured" (click)="drawer.close()"
+        >Featured Articles</a
+      >
+      <a mat-list-item routerLink="/login" (click)="drawer.close()">Login</a>
+      <a mat-list-item routerLink="/signup" (click)="drawer.close()"
+        >Create Account</a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-container>
+    <mat-toolbar>
+      <button
+        mat-icon-button
+        type="button"
+        aria-label="toggle sidenav on and off"
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="logo" routerLink="/">🔥 Streaming</span>
+      <span class="fill-space"></span>
+
+      <!-- will only be rendered on larger screens -->
+      <div *ngIf="!(isHandset$ | async)">
+        <a mat-button routerLink="/">🏠 Home</a>
+        <a mat-button routerLink="/products">🌟 Products</a>
+        <a mat-button>
+          <mat-icon>shopping_cart</mat-icon>
+        </a>
+      </div>
+    </mat-toolbar>
+
+    <ng-content></ng-content>
+  </mat-sidenav-container>
+</mat-sidenav-container>
