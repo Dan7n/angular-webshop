@@ -3,33 +3,86 @@
 
 .products-page {
   @include center-col;
-  margin: 2rem 0;
   .products-page__hero {
     height: 70vh;
     width: 100%;
     background-color: #0b115e;
     color: #8f9ee7;
+    @include center-col;
+    h1 {
+      font-size: 3.3rem;
+      font-family: "Gentium Basic", serif;
+      text-align: center;
+      width: 70%;
+      line-height: 1.12;
+    }
   }
 
   .products-page__products {
-    padding: 1rem 2.5rem;
+    margin-top: 2rem;
+    padding: 1rem 4rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3.2rem;
+
     mat-card {
       @include center-col;
       justify-content: flex-start;
       padding: 0.9rem 0.5rem;
       gap: 1.7rem;
+      position: relative;
       //   alighn-items: flex-start;
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      transform: translateZ(0) scale(1);
+      transition: all 300ms ease-in-out;
+      &:hover {
+        transform: translateZ(50px) scale(1.05);
+        box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+      }
+
+      mat-card-header {
+        text-align: center;
+        font-size: 1.6rem;
+        font-family: "Gentium Basic", serif;
+        padding: 0.8rem 0;
+        line-height: 1.1;
+      }
+
+      mat-card-content {
+        @include center-col;
+        justify-content: flex-start;
+        width: 80%;
+        padding-bottom: 1rem;
+        h1 {
+          font-size: 1.2rem;
+          text-align: left;
+          font-weight: 500;
+        }
+      }
       .img-container {
         width: 100%;
         height: 28rem; // height: 31rem !important;
         overflow: hidden;
+        @include center-col;
         img {
           object-fit: cover;
           width: 100%;
           max-height: 100%;
+        }
+      }
+
+      button {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0 2rem;
+        @include center-row;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        gap: 1rem;
+        mat-icon {
+          padding-right: 1rem;
         }
       }
     }

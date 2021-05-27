@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { HttpClientService } from 'src/app/services/http-client.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,10 +18,29 @@ export class NavbarComponent implements OnInit {
       shareReplay() //we'll be subscribing to this observable multiple times using the | async
     );
 
+  cart = [];
+
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    private httpClientService: HttpClientService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cartItems();
+    this.badgeCount();
+  }
+
+  cartItems() {
+    if (this.httpClientService.isLocalStorage()) {
+      this.httpClientService.cartItems().subscribe((data) => {
+        this.cart.push(data);
+      });
+    }
+  }
+
+  badgeCount(): number {
+    const count = JSON.parse(localStorage.getItem('shoppingCart'))?.length;
+    return count ? count : 0;
+  }
 }

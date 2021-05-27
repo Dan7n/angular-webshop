@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/Product';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,10 +26,21 @@ export class HttpClientService {
 
   catagoryLookup() {
     return this.http.get(this.catagories);
+  }
 
-    // subscribe((data) => {
-    //   const catagoryObject = data.find((el) => el.id === id);
-    //   return catagoryObject.name;
-    // });
+  getCart(): Product[] {
+    return JSON.parse(localStorage.getItem('shoppingCart'));
+  }
+
+  isLocalStorage(): boolean {
+    const LS = localStorage.getItem('shoppingCart');
+    return !!LS;
+  }
+
+  cartItems() {
+    const itemsFromLS = JSON.parse(localStorage.getItem('shoppingCart'));
+    if (itemsFromLS) {
+      return of(itemsFromLS);
+    }
   }
 }

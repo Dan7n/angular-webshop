@@ -1,0 +1,16 @@
+<section>
+  <mat-horizontal-stepper>
+    <mat-step>
+      <h1>Cart Items</h1>
+      <article>
+        <mat-card *ngFor="let item of cart">
+          <div>
+            <img [src]="item.imageUrl" mat-card-image />
+          </div>
+        </mat-card>
+      </article>
+    </mat-step>
+    <mat-step> Second step </mat-step>
+    <mat-step> Second step </mat-step>
+  </mat-horizontal-stepper>
+</section>

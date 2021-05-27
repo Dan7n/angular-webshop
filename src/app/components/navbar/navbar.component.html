@@ -38,9 +38,17 @@
       <div *ngIf="!(isHandset$ | async)">
         <a mat-button routerLink="/">🏠 Home</a>
         <a mat-button routerLink="/products">🌟 Products</a>
-        <a mat-button>
-          <mat-icon>shopping_cart</mat-icon>
-        </a>
+        <button mat-button [matMenuTriggerFor]="expandedCard">
+          <mat-icon [matBadge]="badgeCount()" matBadgeColor="warn"
+            >shopping_cart</mat-icon
+          >
+        </button>
+        <mat-menu #expandedCard="matMenu" xPosition="before" id="menu">
+          <h1 mat-menu-item>My Cart</h1>
+          <div *ngFor="let item of cart" mat-menu-item id="cartContainer">
+            <p>{{ item.name }}</p>
+          </div>
+        </mat-menu>
       </div>
     </mat-toolbar>
 

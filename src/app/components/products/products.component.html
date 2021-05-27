@@ -1,6 +1,6 @@
 <section class="products-page">
   <article class="products-page__hero">
-    Placeholder
+    <h1>Placeholder</h1>
     <!-- <video
       src="./../../../assets/1.mp4"
       [muted]="'muted'"
@@ -23,8 +23,9 @@
         <p>{{ movie.description }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>
+        <button mat-stroked-button (click)="handleAddToCart(movie)">
           <mat-icon>add_shopping_cart</mat-icon>
+          <span>{{ priceFormatter(movie.price) }}</span>
         </button>
       </mat-card-actions>
     </mat-card>
