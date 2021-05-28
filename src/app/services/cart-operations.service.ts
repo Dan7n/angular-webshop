@@ -26,10 +26,12 @@ export class CartOperationsService {
     const moviesFromLS = JSON.parse(localStorage.getItem('shoppingCart'));
     if (moviesFromLS) {
       moviesFromLS.forEach((obj) => {
+        console.log(obj.id, movie.id);
+
         if (obj.id === movie.id) {
-          this.openSnackbar('This movie already exists in your cart');
+          return this.openSnackbar('This movie already exists in your cart');
         } else {
-          const joinedCart = [movie, ...moviesFromLS];
+          const joinedCart = [...moviesFromLS, movie];
           localStorage.setItem('shoppingCart', JSON.stringify(joinedCart));
           this.openSnackbar('Item has been added to your cart');
         }
@@ -40,7 +42,7 @@ export class CartOperationsService {
     }
   }
 
-  getCart() {
+  getCartFromLocalStorage() {
     let cart = [];
     if (this.httpClient.isLocalStorage()) {
       this.httpClient.cartItems().subscribe((data) => {
@@ -50,5 +52,43 @@ export class CartOperationsService {
       });
     }
     return of(cart);
+  }
+
+  /**
+   *
+   * Will find the movie index and remove it from the cart array
+   * if the array is empty it will delete the shoppingCart object from localStorage to prevent bugs
+   *
+   * @returns the updated cart array so that we can use it in our component
+   */
+
+  removeMovieFromCart(movie: Product) {
+    this.getCartFromLocalStorage().subscribe((data) => {
+      const index = data.findIndex((el) => {
+        return el.id == movie.id;
+      });
+
+      index !== -1 && data.splice(index, 1);
+
+      //check if there are no items left in cart
+      if (!data.length) {
+        this.cart = [];
+        localStorage.removeItem('shoppingCart');
+      } else {
+        //update local cart array
+        this.cart = data;
+        //update localStorage
+        const newLocaStorageObject = JSON.stringify(data);
+        this.updateLocalStorage(newLocaStorageObject);
+      }
+    });
+
+    return of(this.cart);
+  }
+
+  updateLocalStorage(newObject) {
+    if (this.httpClient.isLocalStorage()) {
+      localStorage.setItem('shoppingCart', newObject);
+    }
   }
 }

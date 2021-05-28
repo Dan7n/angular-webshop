@@ -33,11 +33,11 @@ export class ProductsComponent implements OnInit {
   }
 
   getCatagories() {
-    return this.httpClient.catagoryLookup().subscribe((catagories) => {
-      catagories.forEach((cat) => {
-        this.catagories[cat.id] = cat.name;
-      });
-    });
+    // return this.httpClient.catagoryLookup().subscribe((catagories) => {
+    //   catagories.forEach((cat) => {
+    //     this.catagories[cat.id] = cat.name;
+    //   });
+    // });
   }
 
   catagoryFinder(id: number) {

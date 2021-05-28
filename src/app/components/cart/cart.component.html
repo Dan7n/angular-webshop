@@ -1,15 +1,36 @@
-<section>
+<section class="cart">
   <mat-horizontal-stepper>
-    <mat-step>
-      <h1>Cart Items</h1>
-      <article>
-        <mat-card *ngFor="let item of cart">
-          <div>
+    <mat-step id="step1">
+      <ng-template matStepLabel>Check your cart</ng-template>
+      <app-no-items-in-cart *ngIf="!cart.length"></app-no-items-in-cart>
+      <h1 *ngIf="cart.length">Cart Items</h1>
+      <article cart__card-container *ngIf="cart.length">
+        <mat-card *ngFor="let item of cart" class="cart__item-card">
+          <div class="cart__item-card__img-container">
             <img [src]="item.imageUrl" mat-card-image />
           </div>
+          <div class="cart__item-card__content-container">
+            <mat-card-title>{{ item.name }}</mat-card-title>
+            <mat-card-content>{{ item.description }}</mat-card-content>
+            <mat-card-content>{{
+              priceFormatter(item.price)
+            }}</mat-card-content>
+          </div>
+          <div class="cart__item-card__actions-container">
+            <mat-card-actions>
+              <button mat-button (click)="removeFromCart(item, $event)">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </mat-card-actions>
+          </div>
         </mat-card>
+
+        <div>
+          <h1>Total Price: {{ totalPrice() }}</h1>
+        </div>
       </article>
     </mat-step>
+
     <mat-step> Second step </mat-step>
     <mat-step> Second step </mat-step>
   </mat-horizontal-stepper>

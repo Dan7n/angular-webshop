@@ -12,13 +12,48 @@ export class CartComponent implements OnInit {
   constructor(private cartOperations: CartOperationsService) {}
   cart: Product[] = [];
 
+  /**
+   * Will be used to add delete animation
+   */
+  willBeDeleted: boolean = false;
+
   ngOnInit(): void {
-    this.cartOperations.getCart().subscribe((cart) => {
+    this.getCart();
+    this.totalPrice();
+  }
+
+  getCart() {
+    this.cartOperations.getCartFromLocalStorage().subscribe((cart) => {
       cart.forEach((item) => {
         this.cart.push(item);
       });
     });
+  }
 
-    console.log(this.cart);
+  priceFormatter(price: number) {
+    return new Intl.NumberFormat('sv-SW', {
+      style: 'currency',
+      currency: 'SEK',
+    }).format(price);
+  }
+
+  removeFromCart(movie: Product, event) {
+    //ugly code, but its basically traversing the DOM family tree and finding the card element that the click event bubbles up to
+    event.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add(
+      'delete-animations'
+    );
+    setTimeout(() => {
+      this.cartOperations
+        .removeMovieFromCart(movie)
+        .subscribe((updatedCart) => {
+          this.cart = updatedCart;
+        });
+    }, 800);
+  }
+
+  totalPrice(): number {
+    let total: number = 0;
+    this.cart.forEach((item) => (total += item.price));
+    return total;
   }
 }

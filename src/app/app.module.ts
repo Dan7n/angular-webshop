@@ -7,6 +7,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
+import { LottieModule } from 'ngx-lottie';
+
+import player from 'lottie-web';
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -26,6 +29,11 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { CartComponent } from './components/cart/cart.component';
+import { NoItemsInCartComponent } from './components/no-items-in-cart/no-items-in-cart.component';
+
+export function playerFactory() {
+  return player;
+}
 
 const matComponents = [
   MatFormFieldModule,
@@ -51,6 +59,7 @@ const matComponents = [
     ProductsComponent,
     ShoppingCartComponent,
     CartComponent,
+    NoItemsInCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +69,7 @@ const matComponents = [
     ReactiveFormsModule,
     LayoutModule,
     HttpClientModule,
+    LottieModule.forRoot({ player: playerFactory }),
     ...matComponents,
   ],
   providers: [],
