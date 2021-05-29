@@ -12,15 +12,18 @@
             </div>
             <div class="cart__item-card__content-container">
               <mat-card-title>{{ item.name }}</mat-card-title>
-              <mat-card-content>{{ item.description }}</mat-card-content>
-              <mat-card-content>{{
+              <mat-card-content id="desc">{{
+                item.description
+              }}</mat-card-content>
+              <mat-card-content id="price">{{
                 priceFormatter(item.price)
               }}</mat-card-content>
             </div>
             <div class="cart__item-card__actions-container">
               <mat-card-actions>
                 <button mat-button (click)="removeFromCart(item, $event)">
-                  <mat-icon>delete_outline</mat-icon>
+                  ☠️
+                  <!-- <mat-icon>delete_outline</mat-icon> -->
                 </button>
               </mat-card-actions>
             </div>
@@ -28,12 +31,28 @@
         </div>
 
         <div class="cart__price-container">
-          <h1>Total Price: {{ totalPrice() }}</h1>
+          <h1>Total Price: {{ totalPrice() }} SEK</h1>
+          <button mat-button matStepperNext>Continue to payment</button>
         </div>
       </article>
     </mat-step>
 
-    <mat-step> Second step </mat-step>
-    <mat-step> Second step </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Shopper Information</ng-template>
+      <app-user-info-form
+        (userForm)="handleUserInfoForm($event)"
+      ></app-user-info-form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Payment Information</ng-template>
+      <app-payment-form
+        (paymentInformation)="handlePaymentInformation($event)"
+      ></app-payment-form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Confirm and Submit</ng-template>
+    </mat-step>
   </mat-horizontal-stepper>
 </section>

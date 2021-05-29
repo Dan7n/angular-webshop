@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { LottieModule } from 'ngx-lottie';
+import { MatSelectModule } from '@angular/material/select';
 
 import player from 'lottie-web';
 
@@ -30,6 +31,8 @@ import { ProductsComponent } from './components/products/products.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { CartComponent } from './components/cart/cart.component';
 import { NoItemsInCartComponent } from './components/no-items-in-cart/no-items-in-cart.component';
+import { PaymentFormComponent } from './components/payment-form/payment-form.component';
+import { UserInfoFormComponent } from './components/user-info-form/user-info-form.component';
 
 export function playerFactory() {
   return player;
@@ -49,6 +52,7 @@ const matComponents = [
   MatBadgeModule,
   MatMenuModule,
   MatStepperModule,
+  MatSelectModule,
 ];
 
 @NgModule({
@@ -60,6 +64,8 @@ const matComponents = [
     ShoppingCartComponent,
     CartComponent,
     NoItemsInCartComponent,
+    PaymentFormComponent,
+    UserInfoFormComponent,
   ],
   imports: [
     BrowserModule,

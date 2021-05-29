@@ -4,7 +4,7 @@
 .products-page {
   @include center-col;
   .products-page__hero {
-    height: 70vh;
+    min-height: 70vh;
     width: 100%;
     background-color: #0b115e;
     color: #8f9ee7;

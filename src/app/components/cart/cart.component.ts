@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/Product';
 import { CartOperationsService } from 'src/app/services/cart-operations.service';
 
@@ -12,10 +11,16 @@ export class CartComponent implements OnInit {
   constructor(private cartOperations: CartOperationsService) {}
   cart: Product[] = [];
 
-  /**
-   * Will be used to add delete animation
-   */
-  willBeDeleted: boolean = false;
+  //shopper information
+  shopperName: string;
+  shopperAdress: string;
+  shopperTelNumber: number;
+  shopperEmail: string;
+
+  //payment information
+  creditCardNumber: number;
+  expirationDate: string;
+  ccv: number;
 
   ngOnInit(): void {
     this.getCart();
@@ -38,22 +43,38 @@ export class CartComponent implements OnInit {
   }
 
   removeFromCart(movie: Product, event) {
-    //ugly code, but its basically traversing the DOM family tree and finding the card element that the click event bubbles up to
-    event.target.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add(
-      'delete-animations'
-    );
-    setTimeout(() => {
+    const parentCard = event.target.closest('mat-card');
+    parentCard.classList.add('delete-animations');
+    parentCard.addEventListener('animationend', () => {
       this.cartOperations
         .removeMovieFromCart(movie)
         .subscribe((updatedCart) => {
           this.cart = updatedCart;
         });
-    }, 800);
+    });
   }
 
   totalPrice(): number {
     let total: number = 0;
     this.cart.forEach((item) => (total += item.price));
     return total;
+  }
+
+  handleUserInfoForm(userInfoFormObj) {
+    this.shopperName = userInfoFormObj.name;
+    this.shopperAdress = userInfoFormObj.adress;
+    this.shopperTelNumber = userInfoFormObj.phoneNumber;
+    this.shopperEmail = userInfoFormObj.email;
+
+    console.log(
+      this.shopperName,
+      this.shopperAdress,
+      this.shopperTelNumber,
+      this.shopperEmail
+    );
+  }
+
+  handlePaymentInformation(paymentInformationObje) {
+    console.log(paymentInformationObje);
   }
 }

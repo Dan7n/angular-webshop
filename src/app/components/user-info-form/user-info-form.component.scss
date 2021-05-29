@@ -1,0 +1,19 @@
+@import "../../scss-partials/_vars.scss";
+@import "../../scss-partials/_mixins.scss";
+
+.form-container {
+  @include center-col;
+  width: 100%;
+  height: 100%;
+
+  form {
+    @include center-col;
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+
+    mat-form-field {
+      width: 50%;
+    }
+  }
+}
