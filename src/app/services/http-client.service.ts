@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Product } from '../models/Product';
 import { of } from 'rxjs';
+import { Order } from '../models/Order';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +10,20 @@ import { of } from 'rxjs';
 export class HttpClientService {
   constructor(private http: HttpClient) {}
 
+  options: {
+    headers: HttpHeaders;
+    params: HttpParams;
+    responseType: 'json';
+  };
+
   private productsUrl: string =
     'https://medieinstitutet-wie-products.azurewebsites.net/api/products';
 
-  catagories: string =
+  private catagories: string =
     'https://medieinstitutet-wie-products.azurewebsites.net/api/categories';
+
+  private ordersEndpoint: string =
+    'https://medieinstitutet-wie-products.azurewebsites.net/api/orders';
 
   /**
    *
@@ -42,5 +52,19 @@ export class HttpClientService {
     if (itemsFromLS) {
       return of(itemsFromLS);
     }
+  }
+
+  /**
+   * Since we're only posting the data once, it makes more sense to handle this POST request as a promise
+   * instead of an observable
+   */
+  sendOrderToApi(orderObject) {
+    return this.http
+      .post<Order>(this.ordersEndpoint, orderObject, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .toPromise();
   }
 }

@@ -14,12 +14,32 @@ export class UserInfoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.userInfoForm = this.formBuilder.group({
-      name: '',
-      phoneNumber: '',
-      adress: '',
-      email: '',
+      name: ['', [Validators.required, Validators.minLength(5)]],
+      phoneNumber: [
+        '',
+        [Validators.required, Validators.pattern('[- +()0-9]+')],
+      ],
+      adress: ['', [Validators.required, Validators.minLength(7)]],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
+
+  get name() {
+    return this.userInfoForm.get('name');
+  }
+
+  get phoneNumber() {
+    return this.userInfoForm.get('phoneNumber');
+  }
+
+  get adress() {
+    return this.userInfoForm.get('address');
+  }
+
+  get email() {
+    return this.userInfoForm.get('email');
+  }
+
   handleFormSubmit() {
     this.userForm.emit(this.userInfoForm.value);
   }

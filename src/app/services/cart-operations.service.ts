@@ -91,4 +91,10 @@ export class CartOperationsService {
       localStorage.setItem('shoppingCart', newObject);
     }
   }
+
+  destroyLocalStorage() {
+    if (this.httpClient.isLocalStorage()) {
+      localStorage.removeItem('shoppingCart');
+    }
+  }
 }

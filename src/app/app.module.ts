@@ -33,6 +33,9 @@ import { CartComponent } from './components/cart/cart.component';
 import { NoItemsInCartComponent } from './components/no-items-in-cart/no-items-in-cart.component';
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
 import { UserInfoFormComponent } from './components/user-info-form/user-info-form.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRippleModule } from '@angular/material/core';
+import { NoPageFoundComponent } from './components/no-page-found/no-page-found.component';
 
 export function playerFactory() {
   return player;
@@ -53,6 +56,8 @@ const matComponents = [
   MatMenuModule,
   MatStepperModule,
   MatSelectModule,
+  MatProgressSpinnerModule,
+  MatRippleModule,
 ];
 
 @NgModule({
@@ -66,6 +71,7 @@ const matComponents = [
     NoItemsInCartComponent,
     PaymentFormComponent,
     UserInfoFormComponent,
+    NoPageFoundComponent,
   ],
   imports: [
     BrowserModule,

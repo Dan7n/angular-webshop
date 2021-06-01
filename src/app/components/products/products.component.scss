@@ -26,6 +26,7 @@
     gap: 3.2rem;
 
     mat-card {
+      border: 1px solid #adb5bd;
       @include center-col;
       justify-content: flex-start;
       padding: 0.9rem 0.5rem;

@@ -1,5 +1,5 @@
 <section class="form-container">
-  <h1>Please fill in the following form fields</h1>
+  <h1>Please provide your contact information</h1>
 
   <form
     [formGroup]="userInfoForm"
@@ -15,6 +15,10 @@
         #nameInput
         placeholder="FirstName LastName"
       />
+      <mat-error *ngIf="name?.invalid">
+        Please enter your correct first and last name
+      </mat-error>
+
       <button
         *ngIf="nameInput.value"
         matSuffix
@@ -36,6 +40,9 @@
         #phoneNumberInput
         placeholder="761234567"
       />
+      <mat-error *ngIf="phoneNumber?.invalid">
+        Please enter your phone number
+      </mat-error>
       <button
         *ngIf="phoneNumberInput.value"
         matSuffix
@@ -56,6 +63,9 @@
         #adressInput
         placeholder="221B Baker St, London"
       />
+      <mat-error *ngIf="adress?.invalid">
+        Please enter your residential adress
+      </mat-error>
       <button
         *ngIf="adressInput.value"
         matSuffix
@@ -76,6 +86,9 @@
         #emailInput
         placeholder="emailadress@example.com"
       />
+      <mat-error *ngIf="email?.invalid && email.touched">
+        Please enter a valid email adress
+      </mat-error>
       <button
         *ngIf="emailInput.value"
         matSuffix
@@ -87,7 +100,12 @@
       </button>
     </mat-form-field>
 
-    <button type="submit" mat-button matStepperNext>
+    <button
+      type="submit"
+      mat-button
+      matStepperNext
+      [disabled]="userInfoForm?.invalid"
+    >
       To Payment Information
     </button>
   </form>

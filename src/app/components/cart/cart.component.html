@@ -1,12 +1,12 @@
 <section class="cart">
-  <mat-horizontal-stepper>
+  <mat-horizontal-stepper linear #stepper [selectedIndex]="stepIndex">
     <mat-step id="step1">
       <ng-template matStepLabel>Check your cart</ng-template>
       <app-no-items-in-cart *ngIf="!cart.length"></app-no-items-in-cart>
       <h1 *ngIf="cart.length">Cart Items</h1>
       <article *ngIf="cart.length">
         <div class="cart__card-container">
-          <mat-card *ngFor="let item of cart" class="cart__item-card">
+          <mat-card *ngFor="let item of cart" class="cart__item-card" matRipple>
             <div class="cart__item-card__img-container">
               <img [src]="item.imageUrl" mat-card-image />
             </div>
@@ -22,37 +22,72 @@
             <div class="cart__item-card__actions-container">
               <mat-card-actions>
                 <button mat-button (click)="removeFromCart(item, $event)">
-                  ☠️
-                  <!-- <mat-icon>delete_outline</mat-icon> -->
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="far"
+                    data-icon="trash-alt"
+                    class="svg-inline--fa fa-trash-alt fa-w-14"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"
+                    ></path>
+                  </svg>
                 </button>
               </mat-card-actions>
             </div>
           </mat-card>
         </div>
 
-        <div class="cart__price-container">
+        <div class="cart__price-container" matRipple>
           <h1>Total Price: {{ totalPrice() }} SEK</h1>
           <button mat-button matStepperNext>Continue to payment</button>
         </div>
       </article>
     </mat-step>
-
-    <mat-step>
+    <!-- TODO add  [completed]="isFormOneValid" after you finish testing -->
+    <mat-step [completed]="isFormOneValid">
       <ng-template matStepLabel>Shopper Information</ng-template>
       <app-user-info-form
         (userForm)="handleUserInfoForm($event)"
       ></app-user-info-form>
     </mat-step>
+    <!-- TODO add  [completed]="isFormTwoValid" after you finish testing  -->
 
-    <mat-step>
+    <mat-step [completed]="isFormTwoValid">
       <ng-template matStepLabel>Payment Information</ng-template>
       <app-payment-form
-        (paymentInformation)="handlePaymentInformation($event)"
+        (paymentInformation)="handlePaymentInformation($event, stepper)"
       ></app-payment-form>
     </mat-step>
 
     <mat-step>
       <ng-template matStepLabel>Confirm and Submit</ng-template>
+      <div class="payment-processing" *ngIf="!orderSubmitted">
+        <p>Please hold a moment...</p>
+        <mat-spinner></mat-spinner>
+      </div>
+      <div class="payment-processed" *ngIf="orderSubmitted">
+        <ng-lottie [options]="lottieOptions"></ng-lottie>
+
+        <h1>Your purchase is successful! 🎉</h1>
+        <div>
+          <p>Thank you, {{ shopperName }} for your business!</p>
+          <p>
+            You'll shortly receive an email with a link to stream all the movies
+            in your cart.
+          </p>
+          <p>
+            Want even more fun stuff to watch tonight? Then go ahead and press
+            the button below to go back to our Products section!
+          </p>
+        </div>
+        <a routerLink="/products">Back to Products</a>
+      </div>
     </mat-step>
   </mat-horizontal-stepper>
 </section>

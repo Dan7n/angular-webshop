@@ -1,5 +1,5 @@
 <section class="form-container">
-  <h1>Please fill in the following form fields</h1>
+  <h1>Please choose a payment method</h1>
 
   <form
     [formGroup]="paymentForm"
@@ -17,6 +17,8 @@
           {{ method.viewValue }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="paymentMethod.invalid">Films aint free 😉</mat-error>
+      <mat-hint>Please select a payment method</mat-hint>
     </mat-form-field>
 
     <div
@@ -32,12 +34,16 @@
           #cardNumberInput
           placeholder="Your card information are never saved"
         />
+        <mat-error *ngIf="cardNumber.invalid"
+          >Please provide a valid CC number</mat-error
+        >
         <button
           *ngIf="cardNumberInput.value"
           matSuffix
           mat-icon-button
           aria-label="Clear"
           (click)="cardNumberInput.value = ''"
+          [disabled]="paymentForm.value.paymentMethod == ''"
         >
           <mat-icon>close</mat-icon>
         </button>
@@ -47,26 +53,40 @@
         <mat-label>Expiration Date</mat-label>
         <input
           matInput
-          type="test"
+          type="text"
           formControlName="expirationDate"
           #cardNumberInput
-          placeholder="MM/YY"
-          maxlength="5"
+          placeholder="MMYY"
+          maxlength="4"
         />
+        <mat-error *ngIf="expirationDate.invalid"
+          >Please provide a date in MMYY format</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>CCV</mat-label>
         <input
           matInput
-          type="number"
+          type="text"
+          maxlength="3"
           formControlName="ccv"
           #cardNumberInput
           placeholder="123"
-          maxlength="3"
         />
+        <mat-error *ngIf="ccv.invalid"
+          >Please provide the three numbers on the back-side of your CC
+        </mat-error>
       </mat-form-field>
     </div>
-    <button type="submit" mat-button matStepperNext>Confirm and Submit</button>
+    <button
+      type="submit"
+      mat-button
+      matStepperNext
+      [disabled]="!isFormInvalid()"
+      (click)="log()"
+    >
+      Confirm and Submit
+    </button>
   </form>
 </section>

@@ -36,7 +36,7 @@ article {
   }
 
   mat-card {
-    background-color: #cdcdd7;
+    border: 1px solid #adb5bd;
     color: #3a405d;
     width: 80%;
     display: grid;
@@ -101,22 +101,29 @@ article {
           width: 100%;
           height: 100%;
           position: relative;
-          font-size: 5rem;
-          // mat-icon {
-          //   font-size: 5rem;
-          //   position: absolute;
-          //   top: 50%;
-          //   left: 50%;
-          // }
+          font-size: 3rem;
+          svg {
+            height: 4rem;
+            width: 4rem;
+            path {
+              fill: #f08080;
+            }
+            @include media(500px) {
+              width: 2rem;
+              height: 2rem;
+            }
+          }
         }
       }
     }
   }
 
   .cart__price-container {
-    border: 1px solid black;
+    border: 1px solid #adb5bd;
+    border-radius: 3px;
     margin-top: $page-margin;
     grid-column: 9 / 12;
+    max-height: 30vh;
     @include center-col;
     @include media(900px) {
       grid-column: span 12;
@@ -124,8 +131,19 @@ article {
       width: 100%;
     }
 
+    @include media(500px) {
+      width: 88%;
+      margin: 2rem auto;
+    }
+
     h1 {
       font-size: 1.3rem;
+    }
+
+    button {
+      @include animated-btn(#f08080, #fbc4ab, black);
+      font-size: 1.2rem;
+      padding: 0.24rem 1.34rem;
     }
   }
 }
@@ -174,5 +192,55 @@ article {
     -webkit-transform: translateZ(-80px);
     transform: translateZ(-80px);
     opacity: 0;
+  }
+}
+
+#step4 {
+  @include center-col;
+  h1 {
+    font-size: 1.9rem;
+  }
+}
+
+.payment-processing {
+  @include center-col;
+  width: 100%;
+  height: 100%;
+  margin-top: $page-margin;
+  gap: 2rem;
+  p {
+    font-size: 2rem;
+    font-weight: 300;
+  }
+}
+
+.payment-processed {
+  @extend .payment-processing;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  ng-lottie {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
+    pointer-events: none;
+  }
+
+  div {
+    @include center-col;
+    margin-bottom: 1rem;
+    p {
+      font-size: clamp(0.855rem, calc(12px + 0.9vw), 1.125rem);
+      line-height: 1.1;
+      text-align: center;
+    }
+  }
+  a {
+    text-decoration: none;
+    @include animated-btn(#b6ccfe, #ccdbfd, black);
+    padding: 0.7rem 0.6rem;
   }
 }

@@ -1,15 +1,14 @@
 export class Order {
-  id: number;
+  id?: number;
   companyId: number = 77726; //just a random number that represents this fictitious company
   created: string = getCurrentDate();
   createdBy: User;
   paymentMethod: string;
   totalPrice: number;
   status: number = 0;
-  orderRows: OrderItems[];
+  orderRows: OrderItem[];
 
-  constructor(id, createdBy, paymentMethod, totalPrice, orderRows) {
-    this.id = id;
+  constructor(createdBy, paymentMethod, totalPrice, orderRows) {
     this.createdBy = createdBy;
     this.paymentMethod = paymentMethod;
     this.totalPrice = totalPrice;
@@ -17,11 +16,15 @@ export class Order {
   }
 }
 
-export class OrderItems {
-  id: number;
+export class OrderItem {
   productId: number;
+  product: string;
   amount: number = 1;
-  orderId: number;
+
+  constructor(productId, product) {
+    this.productId = productId;
+    this.product = product;
+  }
 }
 
 export class User {
@@ -29,13 +32,20 @@ export class User {
   telefonNumber: number;
   adress: string;
   email: string;
+  constructor(name, telefonNumber, adress, email) {
+    this.name = name;
+    this.telefonNumber = telefonNumber;
+    this.adress = adress;
+    this.email = email;
+  }
 }
 
 function getCurrentDate() {
-  const date = new Date(Date.now());
-  return date.toLocaleString();
+  //   const date = new Date(Date.now());
+  //   return date.toLocaleString();
+  return new Date().toJSON();
 }
 
 function randomIdGenerator() {
-  return Math.floor(Math.random() * (99999999 - 1)) + 1;
+  return Math.floor(Math.random() * (999 - 1)) + 1;
 }
