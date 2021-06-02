@@ -21,6 +21,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +37,7 @@ import { UserInfoFormComponent } from './components/user-info-form/user-info-for
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
 import { NoPageFoundComponent } from './components/no-page-found/no-page-found.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export function playerFactory() {
   return player;
@@ -58,6 +60,7 @@ const matComponents = [
   MatSelectModule,
   MatProgressSpinnerModule,
   MatRippleModule,
+  MatTableModule,
 ];
 
 @NgModule({
@@ -72,6 +75,7 @@ const matComponents = [
     PaymentFormComponent,
     UserInfoFormComponent,
     NoPageFoundComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

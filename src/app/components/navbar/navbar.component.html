@@ -13,6 +13,7 @@
       <a mat-list-item routerLink="/products" (click)="drawer.close()"
         >📽️ Products</a
       >
+      <a mat-list-item routerLink="/admin">👮 Admin</a>
       <a mat-list-item routerLink="/cart" (click)="drawer.close()">🛒 Cart</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -35,7 +36,7 @@
       <div *ngIf="!(isHandset$ | async)">
         <a mat-button routerLink="/">🏠 Home</a>
         <a mat-button routerLink="/products">🌟 Products</a>
-        <a mat-button routerLink="/profile">👲 Profile</a>
+        <a mat-button routerLink="/admin">👮 Admin</a>
         <a
           mat-button
           routerLink="/cart"
@@ -43,18 +44,6 @@
           matBadgeColor="warn"
           >🛒 Cart</a
         >
-
-        <!-- <button mat-button [matMenuTriggerFor]="expandedCard">
-          <mat-icon [matBadge]="badgeCount()" matBadgeColor="warn"
-            >shopping_cart</mat-icon
-          >
-        </button> -->
-        <!-- <mat-menu #expandedCard="matMenu" xPosition="before" id="menu">
-          <h1 mat-menu-item>My Cart</h1>
-          <div *ngFor="let item of cart" mat-menu-item id="cartContainer">
-            <p>{{ item.name }}</p>
-          </div>
-        </mat-menu> -->
       </div>
     </mat-toolbar>
 

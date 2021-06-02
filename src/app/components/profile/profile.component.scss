@@ -1,0 +1,24 @@
+@import "../../scss-partials/_vars.scss";
+@import "../../scss-partials/_mixins.scss";
+
+h1 {
+  font-size: 2.3rem;
+  font-family: "Gentium Basic", serif;
+  text-align: center;
+  width: 100%;
+  line-height: 1.12;
+  margin: 2rem 0;
+  padding: 2.5rem 0;
+}
+
+.admin-panel {
+  .admin-panel--not-logged-in {
+    margin-top: $page-margin;
+    @include center-col;
+    ng-lottie {
+      height: 100%;
+      min-width: 25vw;
+      max-width: 400px;
+    }
+  }
+}

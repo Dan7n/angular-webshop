@@ -18,17 +18,29 @@ export class ProductsComponent implements OnInit {
 
   products: Product[] = [];
   catagories = {};
+  pageReady: boolean = false;
 
   ngOnInit(): void {
     this.getProductsFromApi();
     this.getCatagories();
   }
 
+  lottieOptions = {
+    path: './../../../assets/scroll-down.json',
+  };
+
+  scrollDown(el: HTMLElement): void {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+
   getProductsFromApi() {
     return this.httpClient.getProducts().then((productsFromApi) => {
-      productsFromApi.forEach((product) => {
-        this.products.push(product);
-      });
+      if (productsFromApi) {
+        productsFromApi.forEach((product) => {
+          this.products.push(product);
+        });
+        this.pageReady = true;
+      }
     });
   }
 

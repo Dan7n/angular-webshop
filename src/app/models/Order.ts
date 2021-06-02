@@ -1,4 +1,8 @@
 export class Order {
+  [x: string]: any;
+  forEach() {
+    throw new Error('Method not implemented.');
+  }
   id?: number;
   companyId: number = 77726; //just a random number that represents this fictitious company
   created: string = getCurrentDate();
@@ -41,8 +45,6 @@ export class User {
 }
 
 function getCurrentDate() {
-  //   const date = new Date(Date.now());
-  //   return date.toLocaleString();
   return new Date().toJSON();
 }
 

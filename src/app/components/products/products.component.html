@@ -1,20 +1,23 @@
 <section class="products-page">
   <article class="products-page__hero">
-    <h1>Placeholder</h1>
-    <!-- <video
-      src="./../../../assets/1.mp4"
+    <video
+      src="./../../../assets/starwars.mov"
       [muted]="'muted'"
       autoplay
       loop
       playsinline
-    ></video> -->
+    ></video>
+    <ng-lottie
+      [options]="lottieOptions"
+      (click)="scrollDown(cardsContainer)"
+    ></ng-lottie>
   </article>
-  <article class="products-page__products">
+  <article class="products-page__products" #cardsContainer>
+    <mat-spinner *ngIf="!pageReady"></mat-spinner>
     <mat-card *ngFor="let movie of products">
       <mat-card-header>
         {{ movie.name }}
       </mat-card-header>
-      <!-- <mat-card-subtitle> </mat-card-subtitle> -->
       <div class="img-container">
         <img mat-card-image [src]="movie.imageUrl" />
       </div>

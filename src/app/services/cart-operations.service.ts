@@ -23,20 +23,25 @@ export class CartOperationsService {
 
   addProductToCart(movie: Product) {
     this.cart.push(movie);
-    const moviesFromLS = JSON.parse(localStorage.getItem('shoppingCart'));
-    if (moviesFromLS) {
-      moviesFromLS.forEach((obj) => {
-        console.log(obj.id, movie.id);
 
-        if (obj.id === movie.id) {
-          return this.openSnackbar('This movie already exists in your cart');
-        } else {
+    const moviesFromLS = JSON.parse(localStorage.getItem('shoppingCart'));
+
+    if (moviesFromLS) {
+      const ids = moviesFromLS.map((el) => el.id);
+
+      //prevent duplicates to be added to the LS
+      ids.forEach((id) => {
+        //only add if the movie does NOT exist in LS
+        if (ids.indexOf(movie.id) === -1) {
           const joinedCart = [...moviesFromLS, movie];
           localStorage.setItem('shoppingCart', JSON.stringify(joinedCart));
           this.openSnackbar('Item has been added to your cart');
+        } else {
+          return this.openSnackbar('This movie already exists in your cart');
         }
       });
     } else {
+      //if there's no shoppingCart in localStorage
       localStorage.setItem('shoppingCart', JSON.stringify(this.cart));
       this.openSnackbar('Item has been added to your cart');
     }

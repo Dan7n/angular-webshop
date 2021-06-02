@@ -34,6 +34,13 @@ export class HttpClientService {
     return this.http.get<Product>(this.productsUrl).toPromise();
   }
 
+  getOrdersByCompanyId() {
+    const companyId = 77726;
+    return this.http
+      .get<Order>(`${this.ordersEndpoint}/?companyId=${companyId}`)
+      .toPromise();
+  }
+
   catagoryLookup() {
     return this.http.get(this.catagories);
   }

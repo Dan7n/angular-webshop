@@ -1,0 +1,23 @@
+@import "../../scss-partials/_vars.scss";
+@import "../../scss-partials/_mixins.scss";
+h1 {
+  font-size: 2.8rem;
+  font-family: "Gentium Basic", serif;
+  text-align: center;
+  width: 70%;
+  line-height: 1.12;
+}
+
+a {
+  @include animated-btn(#ff5050, #f4aa34, white);
+  margin: 1.5rem 0;
+}
+
+.error {
+  padding: $page-margin 0;
+  @include center-col;
+  ng-lottie {
+    max-width: 60%;
+    max-height: 60%;
+  }
+}

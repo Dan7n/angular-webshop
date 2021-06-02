@@ -1,6 +1,6 @@
 <section class="cart">
   <mat-horizontal-stepper linear #stepper [selectedIndex]="stepIndex">
-    <mat-step id="step1">
+    <mat-step id="step1" [completed]="isCartCheckCompleted">
       <ng-template matStepLabel>Check your cart</ng-template>
       <app-no-items-in-cart *ngIf="!cart.length"></app-no-items-in-cart>
       <h1 *ngIf="cart.length">Cart Items</h1>
@@ -45,7 +45,9 @@
 
         <div class="cart__price-container" matRipple>
           <h1>Total Price: {{ totalPrice() }} SEK</h1>
-          <button mat-button matStepperNext>Continue to payment</button>
+          <button mat-button matStepperNext (click)="goToNextPage(stepper)">
+            Continue to payment
+          </button>
         </div>
       </article>
     </mat-step>
@@ -53,7 +55,7 @@
     <mat-step [completed]="isFormOneValid">
       <ng-template matStepLabel>Shopper Information</ng-template>
       <app-user-info-form
-        (userForm)="handleUserInfoForm($event)"
+        (userForm)="handleUserInfoForm($event, stepper)"
       ></app-user-info-form>
     </mat-step>
     <!-- TODO add  [completed]="isFormTwoValid" after you finish testing  -->
@@ -74,7 +76,7 @@
       <div class="payment-processed" *ngIf="orderSubmitted">
         <ng-lottie [options]="lottieOptions"></ng-lottie>
 
-        <h1>Your purchase is successful! 🎉</h1>
+        <h1>Your purchase was successful! 🎉</h1>
         <div>
           <p>Thank you, {{ shopperName }} for your business!</p>
           <p>

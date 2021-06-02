@@ -4,6 +4,7 @@
 article {
   @include center-col;
   gap: 1rem;
+  margin-top: $page-margin;
 
   h1 {
     font-size: clamp(3rem, 3.3rem, 5rem);

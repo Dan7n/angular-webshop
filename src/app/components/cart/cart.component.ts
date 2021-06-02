@@ -28,6 +28,7 @@ export class CartComponent implements OnInit {
   ccv: number;
   paymentMethod: string;
 
+  isCartCheckCompleted: boolean = false;
   isFormOneValid: boolean = false;
   isFormTwoValid: boolean = false;
 
@@ -80,12 +81,25 @@ export class CartComponent implements OnInit {
     return total;
   }
 
-  handleUserInfoForm(userInfoFormObj) {
+  goToNextPage(matStepper) {
+    this.isCartCheckCompleted = true;
+
+    //because of some bug in Angular Material, this function needs to
+    //be wrapped in a setTimeout fn
+    setTimeout(() => {
+      matStepper.selectedIndex = 1;
+    });
+  }
+
+  handleUserInfoForm(userInfoFormObj, matStepper) {
     this.shopperName = userInfoFormObj.name;
     this.shopperAdress = userInfoFormObj.adress;
     this.shopperTelNumber = userInfoFormObj.phoneNumber;
     this.shopperEmail = userInfoFormObj.email;
     this.isFormOneValid = true;
+    setTimeout(() => {
+      matStepper.selectedIndex = 2;
+    });
   }
 
   randomIdGenerator(): number {
@@ -104,14 +118,17 @@ export class CartComponent implements OnInit {
     this.ccv = ccv;
     this.paymentMethod = paymentMethod;
 
-    this.sendOrderToHttpService();
+    setTimeout(() => {
+      this.sendOrderToHttpService();
+    }, 3000);
   }
 
   sendOrderToHttpService() {
     //create order object with all items in cart
     const orderRows = [];
+
     for (const movie of this.cart) {
-      const newOrderItem = new OrderItem(movie.id, movie.name);
+      const newOrderItem = new OrderItem(movie.id, null);
       orderRows.push(newOrderItem);
     }
 

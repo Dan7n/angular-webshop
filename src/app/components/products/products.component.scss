@@ -9,12 +9,16 @@
     background-color: #0b115e;
     color: #8f9ee7;
     @include center-col;
-    h1 {
-      font-size: 3.3rem;
-      font-family: "Gentium Basic", serif;
-      text-align: center;
-      width: 70%;
-      line-height: 1.12;
+    video {
+      position: relative;
+    }
+    ng-lottie {
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5rem;
+      cursor: pointer;
     }
   }
 
@@ -24,6 +28,16 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 3.2rem;
+    position: relative;
+    margin-bottom: 3rem;
+
+    mat-spinner {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
 
     mat-card {
       border: 1px solid #adb5bd;
