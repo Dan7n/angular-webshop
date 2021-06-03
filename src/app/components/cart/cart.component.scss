@@ -69,6 +69,10 @@ article {
     .cart__item-card__content-container {
       grid-column: 4 / 10;
 
+      mat-card-title {
+        line-height: 1.1;
+      }
+
       @include center-col;
       align-items: flex-start;
       gap: 0.8rem;
@@ -82,6 +86,7 @@ article {
       text-align: center;
 
       mat-card-title {
+        line-height: 1.1;
         @include media(500px) {
           text-align: center;
           width: 100%;

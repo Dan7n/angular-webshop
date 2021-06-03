@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Order } from 'src/app/models/Order';
 import { HttpClientService } from 'src/app/services/http-client.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { MatTableDataSource } from '@angular/material/table';
 import { SingleOrder } from 'src/app/models/SingleOrder';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-profile',
@@ -11,13 +12,14 @@ import { SingleOrder } from 'src/app/models/SingleOrder';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  allOrderByThisComponay = [];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  tableData = new MatTableDataSource(this.allOrderByThisComponay);
   displayedColumns: string[] = ['position', 'orderMade', 'totalPrice'];
 
-  //TODO change to false when you're done testing
-  isLoggedIn: boolean = true;
+  allOrderByThisComponay = [];
+  tableData;
+
+  isLoggedIn: boolean = false;
 
   lottieOptions: AnimationOptions = {
     path: './../../../assets/relax.json',
@@ -26,11 +28,11 @@ export class ProfileComponent implements OnInit {
   constructor(private httpClientService: HttpClientService) {}
 
   ngOnInit(): void {
-    // this.isLoggedIn = false;
-
-    // setTimeout(() => {
-    this.getOrdersFromApi();
-    // }, 4000);
+    this.isLoggedIn = false;
+    setTimeout(() => {
+      this.getOrdersFromApi();
+    }, 4000);
+    console.log(this.allOrderByThisComponay);
   }
 
   getOrdersFromApi() {
@@ -39,7 +41,6 @@ export class ProfileComponent implements OnInit {
       this.isLoggedIn = true;
       if (orders) {
         orders.map((order, i) => {
-          // console.log(order);
           const newSingleOrder: SingleOrder = new SingleOrder(
             i + 1,
             order.created,
@@ -47,6 +48,8 @@ export class ProfileComponent implements OnInit {
           );
           this.allOrderByThisComponay.push(newSingleOrder);
         });
+        this.tableData = new MatTableDataSource(this.allOrderByThisComponay);
+        this.tableData.paginator = this.paginator;
       }
 
       this.allOrderByThisComponay;

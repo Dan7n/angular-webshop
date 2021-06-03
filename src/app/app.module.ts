@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { LottieModule } from 'ngx-lottie';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import player from 'lottie-web';
 
@@ -61,6 +62,7 @@ const matComponents = [
   MatProgressSpinnerModule,
   MatRippleModule,
   MatTableModule,
+  MatPaginatorModule,
 ];
 
 @NgModule({
