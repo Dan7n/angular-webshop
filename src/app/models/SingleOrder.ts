@@ -1,15 +1,8 @@
 export class SingleOrder {
-  position: number;
   orderMade: string;
   totalPrice: string;
   idFromApi: number;
-  constructor(
-    position: number,
-    orderMade: string,
-    totalPrice: number,
-    idFromApi: number
-  ) {
-    this.position = position;
+  constructor(orderMade: string, totalPrice: number, idFromApi: number) {
     this.orderMade = orderMade;
     this.totalPrice = priceFormatter(totalPrice);
     this.idFromApi = idFromApi;

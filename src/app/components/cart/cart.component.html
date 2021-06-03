@@ -51,14 +51,15 @@
         </div>
       </article>
     </mat-step>
-    <!-- TODO add  [completed]="isFormOneValid" after you finish testing -->
+
+    <!-- [completed] makes sure that the form at this step is valid before the user can click on the next step -->
+
     <mat-step [completed]="isFormOneValid">
       <ng-template matStepLabel>Shopper Information</ng-template>
       <app-user-info-form
         (userForm)="handleUserInfoForm($event, stepper)"
       ></app-user-info-form>
     </mat-step>
-    <!-- TODO add  [completed]="isFormTwoValid" after you finish testing  -->
 
     <mat-step [completed]="isFormTwoValid">
       <ng-template matStepLabel>Payment Information</ng-template>

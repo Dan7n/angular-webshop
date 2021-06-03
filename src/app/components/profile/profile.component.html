@@ -12,12 +12,6 @@
     </p>
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="tableData">
-        <!-- Position Column -->
-        <ng-container matColumnDef="position">
-          <th mat-header-cell *matHeaderCellDef>No.</th>
-          <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-        </ng-container>
-
         <!-- Order Created Column -->
         <ng-container matColumnDef="orderMade">
           <th mat-header-cell *matHeaderCellDef>Order Created</th>

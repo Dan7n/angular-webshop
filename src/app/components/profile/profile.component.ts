@@ -16,12 +16,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 export class ProfileComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = [
-    'position',
-    'orderMade',
-    'totalPrice',
-    'delete',
-  ];
+  displayedColumns: string[] = ['orderMade', 'totalPrice', 'delete'];
 
   allOrderByThisComponay = [];
   tableData;
@@ -52,7 +47,6 @@ export class ProfileComponent implements OnInit {
       if (orders) {
         orders.map((order, i) => {
           const newSingleOrder: SingleOrder = new SingleOrder(
-            i + 1,
             order.created,
             order.totalPrice,
             order.id
