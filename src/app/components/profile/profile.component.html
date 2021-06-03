@@ -32,6 +32,19 @@
           <td mat-cell *matCellDef="let element">{{ element.totalPrice }}</td>
         </ng-container>
 
+        <!-- Delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Delete Order</th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            (click)="openDialog(element.idFromApi)"
+          >
+            {{ element.delete }}
+            <mat-icon>delete_forever</mat-icon>
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>

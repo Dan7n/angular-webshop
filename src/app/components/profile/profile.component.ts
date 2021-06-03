@@ -5,6 +5,8 @@ import { AnimationOptions } from 'ngx-lottie';
 import { MatTableDataSource } from '@angular/material/table';
 import { SingleOrder } from 'src/app/models/SingleOrder';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +16,12 @@ import { MatPaginator } from '@angular/material/paginator';
 export class ProfileComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['position', 'orderMade', 'totalPrice'];
+  displayedColumns: string[] = [
+    'position',
+    'orderMade',
+    'totalPrice',
+    'delete',
+  ];
 
   allOrderByThisComponay = [];
   tableData;
@@ -25,7 +32,10 @@ export class ProfileComponent implements OnInit {
     path: './../../../assets/relax.json',
   };
 
-  constructor(private httpClientService: HttpClientService) {}
+  constructor(
+    private httpClientService: HttpClientService,
+    public matDialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.isLoggedIn = false;
@@ -44,7 +54,8 @@ export class ProfileComponent implements OnInit {
           const newSingleOrder: SingleOrder = new SingleOrder(
             i + 1,
             order.created,
-            order.totalPrice
+            order.totalPrice,
+            order.id
           );
           this.allOrderByThisComponay.push(newSingleOrder);
         });
@@ -53,6 +64,23 @@ export class ProfileComponent implements OnInit {
       }
 
       this.allOrderByThisComponay;
+    });
+  }
+
+  openDialog(id: number): void {
+    const dialogRef = this.matDialog.open(DeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.httpClientService.removeOrderById(id).subscribe((result) => {
+          const idx = this.tableData.data.findIndex((el) => {
+            return el.idFromApi === result.id;
+          });
+          //remove object from table's data source and update the changes with a built-in funciton
+          this.tableData.data.splice(idx, 1);
+          this.tableData._updateChangeSubscription();
+        });
+      }
     });
   }
 

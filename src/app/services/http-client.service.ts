@@ -10,6 +10,8 @@ import { Order } from '../models/Order';
 export class HttpClientService {
   constructor(private http: HttpClient) {}
 
+  companyId = 77726;
+
   options: {
     headers: HttpHeaders;
     params: HttpParams;
@@ -25,6 +27,7 @@ export class HttpClientService {
   private ordersEndpoint: string =
     'https://medieinstitutet-wie-products.azurewebsites.net/api/orders';
 
+  //GET
   /**
    *
    * @returns a promise of the products array from the API
@@ -35,9 +38,8 @@ export class HttpClientService {
   }
 
   getOrdersByCompanyId() {
-    const companyId = 77726;
     return this.http
-      .get<Order>(`${this.ordersEndpoint}/?companyId=${companyId}`)
+      .get<Order>(`${this.ordersEndpoint}/?companyId=${this.companyId}`)
       .toPromise();
   }
 
@@ -61,6 +63,7 @@ export class HttpClientService {
     }
   }
 
+  //POST
   /**
    * Since we're only posting the data once, it makes more sense to handle this POST request as a promise
    * instead of an observable
@@ -73,5 +76,12 @@ export class HttpClientService {
         }),
       })
       .toPromise();
+  }
+
+  //DELETE
+  removeOrderById(id: number) {
+    return this.http.delete<Order>(
+      `${this.ordersEndpoint}/${id}?companyId=${this.companyId}`
+    );
   }
 }

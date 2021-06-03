@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { LottieModule } from 'ngx-lottie';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import player from 'lottie-web';
 
@@ -39,6 +40,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
 import { NoPageFoundComponent } from './components/no-page-found/no-page-found.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { DeleteDialogComponent } from './components/profile/delete-dialog/delete-dialog.component';
 
 export function playerFactory() {
   return player;
@@ -63,6 +65,7 @@ const matComponents = [
   MatRippleModule,
   MatTableModule,
   MatPaginatorModule,
+  MatDialogModule,
 ];
 
 @NgModule({
@@ -78,6 +81,7 @@ const matComponents = [
     UserInfoFormComponent,
     NoPageFoundComponent,
     ProfileComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
