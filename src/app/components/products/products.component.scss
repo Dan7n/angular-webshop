@@ -4,13 +4,14 @@
 .products-page {
   @include center-col;
   .products-page__hero {
-    min-height: 70vh;
     width: 100%;
-    background-color: #0b115e;
-    color: #8f9ee7;
+    height: auto;
     @include center-col;
+
     video {
       position: relative;
+      max-width: 100%;
+      height: auto;
     }
     ng-lottie {
       position: absolute;
@@ -32,11 +33,9 @@
     margin-bottom: 3rem;
 
     mat-spinner {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
+      width: 100%;
       z-index: 5;
+      margin: 1rem auto;
     }
 
     mat-card {

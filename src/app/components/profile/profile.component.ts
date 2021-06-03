@@ -55,4 +55,9 @@ export class ProfileComponent implements OnInit {
       this.allOrderByThisComponay;
     });
   }
+
+  timeFormatter(time: string): string {
+    const date = new Date(time);
+    return date.toLocaleString();
+  }
 }

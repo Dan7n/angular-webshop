@@ -4,7 +4,7 @@
     <ng-lottie [options]="lottieOptions"></ng-lottie>
   </div>
 
-  <div class="admin-panel--logged-in">
+  <div class="admin-panel--logged-in" [ngClass]="{ hidden: !isLoggedIn }">
     <h1>Welcome to your admin panel</h1>
     <p>
       Here you have access to all the orders that have ever been places in this
@@ -21,7 +21,9 @@
         <!-- Order Created Column -->
         <ng-container matColumnDef="orderMade">
           <th mat-header-cell *matHeaderCellDef>Order Created</th>
-          <td mat-cell *matCellDef="let element">{{ element.orderMade }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ timeFormatter(element.orderMade) }}
+          </td>
         </ng-container>
 
         <!-- Price Column -->
