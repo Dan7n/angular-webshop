@@ -12,6 +12,7 @@
       (click)="scrollDown(cardsContainer)"
     ></ng-lottie>
   </article>
+
   <article class="products-page__products" #cardsContainer>
     <mat-spinner *ngIf="!pageReady"></mat-spinner>
     <mat-card *ngFor="let movie of products">

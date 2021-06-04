@@ -31,7 +31,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ProductsComponent } from './components/products/products.component';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { CartComponent } from './components/cart/cart.component';
 import { NoItemsInCartComponent } from './components/no-items-in-cart/no-items-in-cart.component';
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
@@ -74,7 +73,6 @@ const matComponents = [
     NavbarComponent,
     HomePageComponent,
     ProductsComponent,
-    ShoppingCartComponent,
     CartComponent,
     NoItemsInCartComponent,
     PaymentFormComponent,

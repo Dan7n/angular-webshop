@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/Product';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClientService } from './http-client.service';
 import { of } from 'rxjs';
 
@@ -47,6 +47,10 @@ export class CartOperationsService {
     }
   }
 
+  /**
+   *
+   * @returns an observable that contains the cart array that's returned form LS
+   */
   getCartFromLocalStorage() {
     let cart = [];
     if (this.httpClient.isLocalStorage()) {

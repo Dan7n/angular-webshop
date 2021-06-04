@@ -27,7 +27,7 @@ export class HttpClientService {
   private ordersEndpoint: string =
     'https://medieinstitutet-wie-products.azurewebsites.net/api/orders';
 
-  //GET
+  //!GET
   /**
    *
    * @returns a promise of the products array from the API
@@ -37,24 +37,33 @@ export class HttpClientService {
     return this.http.get<Product>(this.productsUrl).toPromise();
   }
 
+  /**
+   *
+   * @returns a promise that contains all orders made by this fictional company
+   */
+
   getOrdersByCompanyId() {
     return this.http
       .get<Order>(`${this.ordersEndpoint}/?companyId=${this.companyId}`)
       .toPromise();
   }
 
-  catagoryLookup() {
-    return this.http.get(this.catagories);
-  }
-
   getCart(): Product[] {
     return JSON.parse(localStorage.getItem('shoppingCart'));
   }
+
+  /**
+   * Checks if there's an LS object with the name shoppingCart
+   */
 
   isLocalStorage(): boolean {
     const LS = localStorage.getItem('shoppingCart');
     return !!LS;
   }
+
+  /**
+   * Checks if localStorage exists, in chich case returns the shoppingCart object from LS
+   */
 
   cartItems() {
     const itemsFromLS = JSON.parse(localStorage.getItem('shoppingCart'));
@@ -63,7 +72,7 @@ export class HttpClientService {
     }
   }
 
-  //POST
+  //!POST
   /**
    * Since we're only posting the data once, it makes more sense to handle this POST request as a promise
    * instead of an observable
@@ -78,7 +87,12 @@ export class HttpClientService {
       .toPromise();
   }
 
-  //DELETE
+  //!DELETE
+  /**
+   *
+   * @param id ID of the product on the API
+   * @returns a promise containing all the products by this companyId minus the product that was deleted
+   */
   removeOrderById(id: number) {
     return this.http.delete<Order>(
       `${this.ordersEndpoint}/${id}?companyId=${this.companyId}`

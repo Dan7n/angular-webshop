@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Catagory, Product } from 'src/app/models/Product';
+import { Product } from 'src/app/models/Product';
 import { HttpClientService } from 'src/app/services/http-client.service';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { CartOperationsService } from 'src/app/services/cart-operations.service';
 
 @Component({
@@ -12,7 +11,6 @@ import { CartOperationsService } from 'src/app/services/cart-operations.service'
 export class ProductsComponent implements OnInit {
   constructor(
     private httpClient: HttpClientService,
-    private snackBar: MatSnackBar,
     private cartOperations: CartOperationsService
   ) {}
 
@@ -22,7 +20,6 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProductsFromApi();
-    this.getCatagories();
   }
 
   lottieOptions = {
@@ -42,21 +39,6 @@ export class ProductsComponent implements OnInit {
         this.pageReady = true;
       }
     });
-  }
-
-  getCatagories() {
-    // return this.httpClient.catagoryLookup().subscribe((catagories) => {
-    //   catagories.forEach((cat) => {
-    //     this.catagories[cat.id] = cat.name;
-    //   });
-    // });
-  }
-
-  catagoryFinder(id: number) {
-    for (const prop in this.catagories) {
-      let catagoryName = '';
-      console.log(prop);
-    }
   }
 
   priceFormatter(price: number) {
